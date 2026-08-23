@@ -14,4 +14,16 @@ def user():
     return str(get_user(email))
 
 def apply_discount(total, discount):
+    if not isinstance(total, (int, float)):
+        raise TypeError("total must be numeric")
+
+    if not isinstance(discount, (int, float)):
+        raise TypeError("discount must be numeric")
+
+    if discount < 0:
+        raise ValueError("discount cannot be negative")
+
+    if discount > total:
+        raise ValueError("discount cannot exceed total")
+
     return total - discount
