@@ -5,8 +5,8 @@ app = Flask(__name__)
 
 def get_user(email):
     conn = sqlite3.connect("users.db")
-    query = f"SELECT * FROM users WHERE email = '{email}'"
-    return conn.execute(query).fetchone()
+    query = "SELECT * FROM users WHERE email = ?"
+return conn.execute(query, (email,)).fetchone()
 
 @app.route("/user")
 def user():
