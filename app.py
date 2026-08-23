@@ -15,3 +15,4 @@ def user():
 
 def apply_discount(total, discount):
     return total - discount
+
