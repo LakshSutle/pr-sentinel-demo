@@ -7,7 +7,7 @@ def get_user(email):
     conn = sqlite3.connect("users.db")
     query = f"SELECT * FROM users WHERE email = '{email}'"
     return conn.execute(query).fetchone()
-
+ 
 @app.route("/user")
 def user():
     email = request.args.get("email")
