@@ -1,0 +1,40 @@
+name: PR Quality Gate
+
+on:
+  pull_request:
+    types: [opened, synchronize, reopened]
+
+jobs:
+  quality-gate:
+    name: Security and Quality Gate
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+
+      - name: Compile Python files
+        run: python -m py_compile app.py
+
+      - name: Check for parameterized SQL
+        run: |
+          if grep -Fq 'query = f"SELECT * FROM users WHERE email =' app.py; then
+            echo "❌ Security gate failed: unsafe SQL string interpolation detected."
+            exit 1
+          fi
+
+          echo "✅ SQL parameterization check passed."
+
+      - name: Check for automated tests
+        run: |
+          if [ ! -d "tests" ]; then
+            echo "❌ Quality gate failed: no tests directory found."
+            exit 1
+          fi
+
+          echo "✅ Tests directory found."
