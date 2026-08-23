@@ -52,3 +52,24 @@ def test_apply_discount_normal():
 
 def test_apply_discount_zero():
     assert apply_discount(100, 0) == 100
+
+def test_apply_discount_normal():
+    assert apply_discount(100, 20) == 80
+
+
+def test_apply_discount_zero():
+    assert apply_discount(100, 0) == 100
+
+
+def test_apply_discount_equal_total():
+    assert apply_discount(100, 100) == 0
+
+
+def test_apply_discount_negative():
+    with pytest.raises(ValueError):
+        apply_discount(100, -10)
+
+
+def test_apply_discount_greater_than_total():
+    with pytest.raises(ValueError):
+        apply_discount(100, 120)
