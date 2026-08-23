@@ -12,3 +12,6 @@ def get_user(email):
 def user():
     email = request.args.get("email")
     return str(get_user(email))
+
+def apply_discount(total, discount):
+    return total - discount
