@@ -12,3 +12,4 @@ def get_user(email):
 def user():
     email = request.args.get("email")
     return str(get_user(email))
+# PR Sentinel CI test
