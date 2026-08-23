@@ -27,6 +27,14 @@ def test_get_user_valid_email(test_db):
     result = get_user("alice@example.com")
     assert result == (1, "alice@example.com")
 
+def test_user_endpoint_returns_expected_response():
+    from app import app
+
+    client = app.test_client()
+
+    response = client.get("/user?email=alice@example.com")
+
+    assert response.status_code == 200
 
 def test_get_user_special_characters(test_db):
     result = get_user("alice'@example.com")
